@@ -1,0 +1,17 @@
+# Logs
+storage/logs/*.log
+!storage/logs/.gitkeep
+
+# Cache & Sessions
+storage/cache/*
+storage/sessions/*
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary and test files
+*.tmp
+cookies*.txt
+scratch/

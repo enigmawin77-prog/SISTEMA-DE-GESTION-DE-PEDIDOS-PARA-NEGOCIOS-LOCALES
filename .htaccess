@@ -1,0 +1,30 @@
+# ==============================================================================
+# CONFIGURACIÓN APACHE PARA GESTIÓN DE PEDIDOS PARA NEGOCIOS LOCALES
+# ==============================================================================
+
+Options -Indexes
+
+# Protección de archivos privados y de configuración
+<FilesMatch "(database\.sql|\.log|\.env|\.git|composer\.json)$">
+    Require all denied
+</FilesMatch>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /gestion-pedidos-locales/
+
+    # Si el archivo o carpeta solicitado existe en el sistema, cargarlo directamente
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Rutas limpias opcionales hacia index.php?route=$1
+    RewriteRule ^([a-zA-Z0-9_\-]+)/?$ index.php?route=$1 [QSA,L]
+</IfModule>
+
+# Cabeceras de seguridad
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+</IfModule>
